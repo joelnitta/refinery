@@ -3,11 +3,13 @@
 #'
 #' @param name The folder in which the article is located
 #' @param collection The collection the article belongs to (default = "posts")
+#' @param source_branch Name of branch with source code
+#' @param lockfile_branch Name of branch with renv lockfile
 #' @param repo_spec Repository specification, formatted as "user/repo_name"
 #'
 #' @return A shiny.tag object
 #' @export
-insert_appendix <- function(repo_spec, name, collection = "posts") {
+insert_appendix <- function(repo_spec, name, source_branch = "master", lockfile_branch = "master", collection = "posts") {
 
   appendices <- paste(
     markdown_appendix(
@@ -18,8 +20,8 @@ insert_appendix <- function(repo_spec, name, collection = "posts") {
     markdown_appendix(
       name = "Details",
       content = paste(
-        insert_source(repo_spec, name, collection),
-        insert_lockfile(repo_spec, name, collection),
+        insert_source(repo_spec, name, collection, source_branch),
+        insert_lockfile(repo_spec, name, collection, lockfile_branch),
         sep = ", "
       )
     ),
